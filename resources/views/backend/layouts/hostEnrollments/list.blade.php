@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="content-wrapper">
+
         <!-- Header Section -->
         <div class="content-header">
             <div class="container-fluid d-flex justify-content-between align-items-center">
@@ -39,9 +40,9 @@
                     </div>
                 </div>
 
-                <!-- Data Table -->
+                <!-- Responsive Data Table -->
                 <div class="card shadow-sm">
-                    <div class="card-body p-0">
+                    <div class="card-body p-0 table-responsive">
                         <table class="table table-striped table-bordered mb-0">
                             <thead class="bg-teal text-white text-center">
                             <tr>
@@ -62,6 +63,7 @@
                                 <th>Agency URL</th>
                                 <th>Message</th>
                                 <th>Answers</th>
+                                <th>Status</th>
                                 <th>Date</th>
                             </tr>
                             </thead>
@@ -73,14 +75,14 @@
                                     <td>{{ $enroll->company_name ?? 'N/A' }}</td>
                                     <td>{{ $enroll->email ?? 'N/A' }}</td>
                                     <td>{{ $enroll->phone ?? 'N/A' }}</td>
-                                    <td>{{ $enroll->annual_income ?? 'N/A' }}</td>
+                                    <td>{{ $enroll->annualIncome?->annual_income ?? 'N/A' }}</td>
                                     <td>{{ $enroll->employee_number ?? 'N/A' }}</td>
-                                    <td>{{ $enroll->country ?? 'N/A' }}</td>
+                                    <td>{{ $enroll->country?->name ?? 'N/A' }}</td>
                                     <td>{{ $enroll->city ?? 'N/A' }}</td>
                                     <td>{{ $enroll->state ?? 'N/A' }}</td>
-                                    <td>{{ $enroll->zip_number ?? 'N/A' }}</td>
-                                    <td>{{ $enroll->parish ?? 'N/A' }}</td>
-                                    <td>{{ $enroll->county ?? 'N/A' }}</td>
+                                    <td>{{ $enroll->zipCode?->code ?? 'N/A' }}</td>
+                                    <td>{{ $enroll->parish?->name ?? 'N/A' }}</td>
+                                    <td>{{ $enroll->county?->name ?? 'N/A' }}</td>
                                     <td>{{ $enroll->licence_number ?? 'N/A' }}</td>
                                     <td>
                                         @if($enroll->licence_agency_url)
@@ -92,27 +94,28 @@
                                         @endif
                                     </td>
                                     <td>{{ $enroll->message ?? 'N/A' }}</td>
+
+                                    <!-- Answers Column -->
                                     <td class="text-start">
-                                        @if(is_array($enroll->answers_json))
+                                        @php
+                                            // Decode answers if stored as JSON string
+                                            $answers = is_string($enroll->answers_json)
+                                                ? json_decode($enroll->answers_json, true)
+                                                : $enroll->answers_json;
+                                        @endphp
+
+                                        @if(!empty($answers) && is_array($answers))
                                             <ul class="list-unstyled m-0">
-                                                @php
-                                                    $questionSets = \App\Models\Question::all();
-                                                @endphp
-                                                @foreach($questionSets as $qSet)
-                                                    <li class="mb-1">
-                                                        <strong>{{ $qSet->title }}:</strong>
-                                                        <ul class="list-unstyled ms-3">
-                                                            @php
-                                                                $subAnswers = collect($enroll->answers_json)
-                                                                                ->where('question_id', $qSet->id)
-                                                                                ->values();
-                                                            @endphp
-                                                            @foreach($subAnswers as $index => $subAnswer)
-                                                                <li>
-                                                                    <strong>Question {{ $index + 1 }}:</strong> {{ $subAnswer['answer'] }}
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
+                                                @foreach($answers as $index => $answer)
+                                                    @php
+                                                        // Prepare clean answer text
+                                                        $text = is_array($answer) ? implode(', ', $answer) : trim($answer);
+
+                                                        // Remove trailing ", 1" or ",1"
+                                                        $text = preg_replace('/,\s*1$/', '', $text);
+                                                    @endphp
+                                                    <li>
+                                                        <strong>Q{{ $loop->iteration }}:</strong> {{ $text ?: 'N/A' }}
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -120,11 +123,23 @@
                                             <span class="text-muted">No Answers</span>
                                         @endif
                                     </td>
+                                    <!-- Status Column with Toggle -->
+                                    <td>
+                                        <form action="{{ route('enrollments.toggle-status', $enroll->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm
+                                            {{ $enroll->status === 'Active' ? 'btn-success' : 'btn-danger' }}">
+                                                {{ $enroll->status ?? 'Inactive' }}
+                                            </button>
+                                        </form>
+                                    </td>
+
+                                    <!-- Date Column -->
                                     <td>{{ $enroll->created_at->format('d M, Y') }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="18" class="text-center text-muted py-3">
+                                    <td colspan="19" class="text-center text-muted py-3">
                                         No host enrollments found
                                     </td>
                                 </tr>

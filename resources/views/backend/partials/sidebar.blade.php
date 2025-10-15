@@ -109,9 +109,16 @@
                     <ul class="nav nav-treeview">
                         @php
                             $subMenu = [
+//                                ['route' => '', 'icon' => 'far fa-circle', 'label' => 'CreateProduct'],
                                 ['route' => 'service-categories.index', 'icon' => 'far fa-circle', 'label' => 'Category'],
                                 ['route' => 'service-subcategories.index', 'icon' => 'far fa-circle', 'label' => 'SubCategory'],
                                 ['route' => 'pricing-types.index', 'icon' => 'far fa-circle', 'label' => 'PricingTypes'],
+                                ['route' => 'countries.index', 'icon' => 'far fa-circle', 'label' => 'ServiceCountry'],
+                                ['route' => 'counties.index', 'icon' => 'far fa-circle', 'label' => 'ServiceCounty'],
+                                ['route' => 'parishes.index', 'icon' => 'far fa-circle', 'label' => 'ServiceParish'],
+                                ['route' => 'zip_codes.index', 'icon' => 'far fa-circle', 'label' => 'ServiceZipCode'],
+//                                ['route' => 'phone-numbers.index', 'icon' => 'far fa-circle', 'label' => 'ServicePhoneNumber'],
+                                ['route' => 'annual-incomes.index', 'icon' => 'far fa-circle', 'label' => 'ServiceAnnualIncome'],
                             ];
                         @endphp
 

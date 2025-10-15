@@ -16,14 +16,17 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('company_name', 255)->nullable();
             $table->string('email', 255)->nullable();
-            $table->string('phone', 20)->nullable();
-            $table->string('country', 100)->nullable();
-            $table->string('city', 100)->nullable();
+            $table->string('phone')->nullable();
             $table->string('state', 100)->nullable();
-            $table->string('zip_number', 20)->nullable();
-            $table->string('parish', 100)->nullable();
-            $table->string('county', 100)->nullable();
+            $table->string('city', 100)->nullable();
+            $table->foreignId('country_id');
+            $table->foreignId('county_id');
+            $table->foreignId('parish_id');
+            $table->foreignId('zip_code_id');
             $table->text('message')->nullable();
+            $table->string('licence_number', 100)->nullable();
+            $table->string('licence_agency_url', 255)->nullable();
+            $table->enum('status', ['Active', 'Inactive'])->default('Inactive');
             $table->timestamps();
         });
     }

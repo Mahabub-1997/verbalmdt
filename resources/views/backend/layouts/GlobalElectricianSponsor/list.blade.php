@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="content-wrapper">
+
         <!-- Header Section -->
         <div class="content-header">
             <div class="container-fluid d-flex justify-content-between align-items-center">
@@ -68,24 +69,25 @@
                                 <th>Licence Number</th>
                                 <th>Licence Agency URL</th>
                                 <th>Message</th>
+                                <th>Status</th>
                                 <th>Date</th>
                             </tr>
                             </thead>
                             <tbody>
                             @forelse($sponsors as $index => $item)
-                                <tr>
-                                    <td class="text-center">{{ $sponsors->firstItem() + $index }}</td>
+                                <tr class="text-center">
+                                    <td>{{ $sponsors->firstItem() + $index }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->company_name ?? 'N/A' }}</td>
                                     <td>{{ $item->email ?? 'N/A' }}</td>
                                     <td>{{ $item->phone ?? 'N/A' }}</td>
-                                    <td>{{ $item->country ?? 'N/A' }}</td>
+                                    <td>{{ $item->country?->name ?? 'N/A' }}</td>
                                     <td>{{ $item->state ?? 'N/A' }}</td>
                                     <td>{{ $item->city ?? 'N/A' }}</td>
-                                    <td>{{ $item->parish ?? 'N/A' }}</td>
-                                    <td>{{ $item->county ?? 'N/A' }}</td>
-                                    <td>{{ $item->zip_number ?? 'N/A' }}</td>
-                                    <td>{{ $item->licence_number ?? 'N/A' }}</td>   <!-- new -->
+                                    <td>{{ $item->parish?->name ?? 'N/A' }}</td>
+                                    <td>{{ $item->county?->name ?? 'N/A' }}</td>
+                                    <td>{{ $item->zipCode?->code ?? 'N/A' }}</td>
+                                    <td>{{ $item->licence_number ?? 'N/A' }}</td>
                                     <td>
                                         @if($item->licence_agency_url)
                                             <a href="{{ $item->licence_agency_url }}" target="_blank" title="Visit Licence Agency">
@@ -95,12 +97,24 @@
                                             N/A
                                         @endif
                                     </td>
-                                    <td>{{($item->message) }}</td>
+                                    <td>{{ $item->message ?? 'N/A' }}</td>
+
+                                    <!-- Status Column with Toggle Button -->
+                                    <td>
+                                        <form action="{{ route('sponsors.toggle-status', $item->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm
+                                            {{ $item->status === 'Active' ? 'btn-success' : 'btn-danger' }}">
+                                                {{ $item->status ?? 'Inactive' }}
+                                            </button>
+                                        </form>
+                                    </td>
+
                                     <td>{{ $item->created_at->format('d M, Y') }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="15" class="text-center text-muted py-3">
+                                    <td colspan="16" class="text-center text-muted py-3">
                                         No sponsors found
                                     </td>
                                 </tr>

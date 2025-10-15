@@ -31,4 +31,12 @@ class GlobalElectricianSponsorController extends Controller
 
         return view('backend.layouts.GlobalElectricianSponsor.list', compact('sponsors'));
     }
+    // SponsorController.php
+    public function toggleStatus(GlobalElectricianSponsor $sponsor)
+    {
+        $sponsor->status = $sponsor->status === 'Active' ? 'Inactive' : 'Active';
+        $sponsor->save();
+
+        return redirect()->back()->with('success', 'Sponsor status updated successfully!');
+    }
 }

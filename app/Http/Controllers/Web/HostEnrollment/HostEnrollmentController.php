@@ -23,7 +23,7 @@ class HostEnrollmentController extends Controller
             });
         }
 
-        $perPage = $request->get('per_page', 2);
+        $perPage = $request->get('per_page', 5);
         $enrollments = $query->orderBy('created_at', 'desc')->paginate($perPage)->withQueryString();
 
         return view('backend.layouts.hostEnrollments.list', compact('enrollments'));
@@ -63,5 +63,13 @@ class HostEnrollmentController extends Controller
         ]);
 
         return redirect()->route('hostEnrollments.index')->with('success', 'Host Enrollment created successfully!');
+    }
+    public function toggleStatus($id)
+    {
+        $enroll = HostEnrollment::findOrFail($id);
+        $enroll->status = $enroll->status === 'Active' ? 'Inactive' : 'Active';
+        $enroll->save();
+
+        return redirect()->back()->with('success', 'Enrollment status updated successfully!');
     }
 }

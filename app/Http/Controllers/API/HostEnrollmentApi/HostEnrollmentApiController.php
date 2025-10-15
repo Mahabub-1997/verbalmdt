@@ -23,44 +23,34 @@ class HostEnrollmentApiController extends Controller
     // POST a new enrollment
     public function store(Request $request)
     {
-        $request->validate([
+        // Validate the incoming request
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'company_name' => 'nullable|string|max:255',
-            'email' => 'nullable|email',
-            'phone' => 'nullable|string|max:20',
-            'annual_income' => 'nullable|string',
-            'employee_number' => 'nullable|string',
-            'country' => 'nullable|string|max:100',
+            'email' => 'nullable|email|max:255',
+            'phone' => 'required|string|max:50',
+            'annual_income_id' => 'nullable|exists:annual_incomes,id',
+            'employee_number' => 'nullable|string|max:100',
+            'country_id' => 'required|exists:countries,id',
             'city' => 'nullable|string|max:100',
             'state' => 'nullable|string|max:100',
-            'zip_number' => 'nullable|string|max:20',
-            'parish' => 'nullable|string|max:100',
-            'county' => 'nullable|string|max:100',
-            'licence_number' => 'nullable|string',
-            'licence_agency_url' => 'nullable|url',
+            'zip_code_id' => 'required|exists:zip_codes,id',
+            'parish_id' => 'required|exists:parishes,id',
+            'county_id' => 'required|exists:counties,id',
+            'licence_number' => 'nullable|string|max:100',
+            'licence_agency_url' => 'nullable|url|max:255',
             'message' => 'nullable|string',
             'answers_json' => 'nullable|array',
+            'status' => 'nullable|in:Active,Inactive', // Status validation
         ]);
 
-        $enrollment = HostEnrollment::create([
-            'name' => $request->name,
-            'company_name' => $request->company_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'annual_income' => $request->annual_income,
-            'employee_number' => $request->employee_number,
-            'country' => $request->country,
-            'city' => $request->city,
-            'state' => $request->state,
-            'zip_number' => $request->zip_number,
-            'parish' => $request->parish,
-            'county' => $request->county,
-            'licence_number' => $request->licence_number,
-            'licence_agency_url' => $request->licence_agency_url,
-            'message' => $request->message,
-            'answers_json' => $request->answers_json,
-        ]);
+        // Set default status if not provided
+        $validated['status'] = $validated['status'] ?? 'Inactive';
 
+        // Create the enrollment
+        $enrollment = HostEnrollment::create($validated);
+
+        // Return JSON response
         return response()->json([
             'status' => true,
             'message' => 'Host Enrollment created successfully',

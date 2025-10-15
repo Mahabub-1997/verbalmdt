@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('global_electrician_sponsors', function (Blueprint $table) {
-            $table->string('licence_number', 100)->nullable();
-            $table->string('licence_agency_url', 255)->nullable();
+        Schema::create('counties', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 100);
+            $table->foreignId('country_id');
+            $table->timestamps();
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('global_electrician_sponsors', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('counties');
     }
 };

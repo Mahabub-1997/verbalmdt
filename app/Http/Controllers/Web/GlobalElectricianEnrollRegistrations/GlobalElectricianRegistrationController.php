@@ -33,4 +33,15 @@ class GlobalElectricianRegistrationController extends Controller
 
         return view('backend.layouts.GlobalElectricianEnrollRegistrations.list', compact('registrations', 'search'));
     }
+
+
+
+    // RegistrationController.php
+    public function toggleStatus(GlobalElectricianRegistration $registration)
+    {
+        $registration->status = $registration->status === 'Active' ? 'Inactive' : 'Active';
+        $registration->save();
+
+        return redirect()->back()->with('success', 'Status updated successfully!');
+    }
 }

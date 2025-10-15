@@ -12,20 +12,55 @@ class GlobalElectricianRegistration extends Model
     protected $table = 'global_electrician_registrations';
 
     /**
-     * Mass assignable fields.
+     * The attributes that are mass assignable.
      */
     protected $fillable = [
         'name',
         'email',
         'phone',
-        'country',
         'state',
         'city',
-        'parish',
-        'county',
-        'zip_number',
+        'country_id',
+        'county_id',
+        'parish_id',
+        'zip_code_id',
         'message',
         'licence_number',
         'licence_agency_url',
+        'status',
     ];
+
+    /**
+     * Relationships
+     */
+
+    // Phone relationship
+    public function phone()
+    {
+        return $this->belongsTo(PhoneNumber::class);
+    }
+
+    // Country relationship
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    // County relationship
+    public function county()
+    {
+        return $this->belongsTo(County::class);
+    }
+
+    // Parish relationship
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
+
+    // Zip code relationship
+    public function zipCode()
+    {
+        return $this->belongsTo(ZipCode::class);
+    }
 }

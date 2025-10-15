@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Web\AnnualIncome\AnnualIncomeController;
 use App\Http\Controllers\Web\BeAHost\QuestionController;
 use App\Http\Controllers\Web\Blogs\BlogController;
 use App\Http\Controllers\Web\CMS\PrivacyPolicyController;
@@ -21,6 +22,11 @@ use App\Http\Controllers\Web\HostEnrollment\HostEnrollmentController;
 use App\Http\Controllers\Web\OurServices\Category\ServiceCategoryController;
 use App\Http\Controllers\Web\OurServices\PricingType\PricingTypeController;
 use App\Http\Controllers\Web\OurServices\SubCategory\ServiceSubcategoryController;
+use App\Http\Controllers\Web\ServiceCountry\CountryController;
+use App\Http\Controllers\Web\ServiceCounty\CountyController;
+use App\Http\Controllers\Web\ServiceParish\ParishController;
+use App\Http\Controllers\Web\ServicePhoneNumber\PhoneNumberController;
+use App\Http\Controllers\Web\ServiceZipCode\ZipCodeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -73,9 +79,21 @@ Route::resource('pricing-types', PricingTypeController::class);
 //GlobalElectricianEnrollRegistrations
 Route::get('/admin/global-electrician-registrations', [GlobalElectricianRegistrationController::class, 'index'])
     ->name('global-electrician-registrations.list');
+
+// web.php
+Route::post('registrations/{registration}/toggle-status', [GlobalElectricianRegistrationController::class, 'toggleStatus'])
+    ->name('registrations.toggle-status');
+
+
 //GlobalElectricianEnrollSponsor
 Route::get('global-electrician-sponsors', [GlobalElectricianSponsorController::class, 'index'])
     ->name('backend.global_sponsors.index');
+
+Route::post('sponsors/{sponsor}/toggle-status', [GlobalElectricianSponsorController::class, 'toggleStatus'])
+    ->name('sponsors.toggle-status');
+
+Route::post('enrollments/{id}/toggle-status', [HostEnrollmentController::class, 'toggleStatus'])
+    ->name('enrollments.toggle-status');
 
 
 Route::prefix('questions')->group(function () {
@@ -87,5 +105,12 @@ Route::prefix('questions')->group(function () {
     Route::put('/{id}', [QuestionController::class, 'update'])->name('questions.update');
     Route::delete('/{id}', [QuestionController::class, 'destroy'])->name('questions.destroy');
 });
+
+Route::resource('countries', CountryController::class);
+Route::resource('counties', CountyController::class);
+Route::resource('parishes', ParishController::class);
+Route::resource('zip_codes', ZipCodeController::class);
+Route::resource('phone-numbers', PhoneNumberController::class);
+Route::resource('annual-incomes', AnnualIncomeController::class);
 
 require __DIR__.'/auth.php';
