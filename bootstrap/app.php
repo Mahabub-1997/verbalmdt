@@ -55,6 +55,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
             'auth' => \App\Http\Middleware\Authenticate::class,
             'admin' => \App\Http\Middleware\AdminMiddleware::class, // Example if you have one
+            'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         ]);
 
         /**
