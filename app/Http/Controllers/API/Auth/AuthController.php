@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\PasswordOtp;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -41,43 +44,28 @@ class AuthController extends Controller
     // LOGIN
     // ------------------------
     public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
+{
+    $credentials = $request->validate([
+        'email' => 'required|string|email',
+        'password' => 'required|string',
+    ]);
 
-        if (!Auth::attempt($request->only('email', 'password'))) {
+    try {
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
-
-        $user = Auth::user();
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'user' => $user,
-//            'token_type' => 'Bearer',
-            'token' => $token,
-        ]);
+    } catch (JWTException $e) {
+        return response()->json(['message' => 'Could not create token'], 500);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    $user = Auth::user(); // authenticated user
+// dd($user);
+    return response()->json([
+        'user' => $user,
+        'token' => $token, // this is the JWT token
+        'token_type' => 'bearer',
+    ]);
+}
 
     // ------------------------
     // LOGOUT
