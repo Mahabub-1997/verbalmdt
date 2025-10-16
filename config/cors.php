@@ -31,12 +31,13 @@ return [
 //    'max_age' => 0,
 //
 //    'supports_credentials' => true,
-    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', 'logout'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', 'logout', 'register'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['https://verbalmdt.softvencefsd.xyz'],
-    'allowed_origins_patterns' => [],
+    'allowed_origins' => [
+        'http://localhost:3000',           // React dev server
+        'http://127.0.0.1:3000',           // Optional
+        'https://verbalmdt.softvencefsd.xyz', // Live production
+    ],
     'allowed_headers' => ['*'],
-    'exposed_headers' => [],
-    'max_age' => 0,
-    'supports_credentials' => true, // 🚨 অবশ্যই true রাখতে হবে
+    'supports_credentials' => true,
 ];
