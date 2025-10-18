@@ -11,42 +11,23 @@ return [
     | or "CORS". This determines what cross-origin operations may execute
     | in web browsers. You are free to adjust these settings as needed.
     |
-    | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-    |
     */
-//    'paths' => ['*'],
 
-//    'paths' => ['api/*', 'sanctum/csrf-cookie'],
-//
-//    'allowed_methods' => ['*'],
-//
-//    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
-//
-//    'allowed_origins_patterns' => [],
-//
-//    'allowed_headers' => ['*'],
-//
-//    'exposed_headers' => [],
-//
-//    'max_age' => 0,
-//
-//    'supports_credentials' => true,
+    'allowed_origins' => explode(',', env('CORS_ORIGINS', implode(',', [
+        'https://verbalmdt.softvencefsd.xyz/api/login',
+//        'http://localhost:3001/auth/signin',
+        'https://localhost:3000',
+        'http://localhost:3001',
+    ]))),
 
-//    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', 'logout', 'register'],
-//    'allowed_methods' => ['*'],
-//    'allowed_origins' => [
-//        'http://localhost:3000',           // React dev server
-//        'http://127.0.0.1:3000',           // Optional
-//        'https://verbalmdt.softvencefsd.xyz', // Live production
-//    ],
-//    'allowed_headers' => ['*'],
-//    'supports_credentials' => true,
+    'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
 
-    'paths' => ['api/*'],
-    'allowed_methods' => ['*'],
-    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
-    'allowed_headers' => ['*'],
-    'exposed_headers' => ['Authorization'], // JWT token sent in headers
-    'max_age' => 0,
-    'supports_credentials' => false,
+    'allowed_headers' => ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Cache-Control', 'Pragma', 'Expires'],
+
+    'exposed_headers' => [],
+
+    'max_age' => 86400,
+
+    'supports_credentials' => true,
+
 ];
