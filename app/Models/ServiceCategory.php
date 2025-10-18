@@ -20,4 +20,9 @@ class ServiceCategory extends Model
     {
         return $this->hasMany(ServiceSubcategory::class, 'category_id');
     }
+    // Relation: Category has many ServiceProviders
+    public function serviceProviders()
+    {
+        return $this->hasMany(ServiceProvider::class, 'category_id');
+    }
 }

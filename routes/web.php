@@ -26,6 +26,7 @@ use App\Http\Controllers\Web\ServiceCountry\CountryController;
 use App\Http\Controllers\Web\ServiceCounty\CountyController;
 use App\Http\Controllers\Web\ServiceParish\ParishController;
 use App\Http\Controllers\Web\ServicePhoneNumber\PhoneNumberController;
+use App\Http\Controllers\Web\ServiceProvider\ServiceProviderController;
 use App\Http\Controllers\Web\ServiceZipCode\ZipCodeController;
 use Illuminate\Support\Facades\Route;
 
@@ -112,5 +113,8 @@ Route::resource('parishes', ParishController::class);
 Route::resource('zip_codes', ZipCodeController::class);
 Route::resource('phone-numbers', PhoneNumberController::class);
 Route::resource('annual-incomes', AnnualIncomeController::class);
+
+
+Route::resource('service-providers', ServiceProviderController::class);
 
 require __DIR__.'/auth.php';

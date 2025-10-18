@@ -21,4 +21,14 @@ class ServiceSubcategory extends Model
     {
         return $this->belongsTo(ServiceCategory::class, 'category_id');
     }
+    // Relation: Subcategory has many ServiceProviders
+    public function serviceProviders()
+    {
+        return $this->hasMany(ServiceProvider::class, 'subcategory_id');
+    }
+    // Subcategory has many Providers
+    public function providers()
+    {
+        return $this->hasMany(ServiceProvider::class, 'subcategory_id');
+    }
 }

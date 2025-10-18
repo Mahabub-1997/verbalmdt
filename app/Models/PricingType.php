@@ -12,4 +12,10 @@ class PricingType extends Model
     protected $fillable = [
         'name',
     ];
+
+    // Relation: PricingType has many ServiceProviders
+    public function serviceProviders()
+    {
+        return $this->hasMany(ServiceProvider::class, 'pricing_type_id');
+    }
 }

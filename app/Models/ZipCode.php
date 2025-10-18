@@ -41,4 +41,9 @@ class ZipCode extends Model
     {
         return $this->hasMany(HostEnrollment::class, 'zip_code_id');
     }
+    // Relation: ZipCode has many ServiceProviders
+    public function serviceProviders()
+    {
+        return $this->hasMany(ServiceProvider::class, 'zip_code_id');
+    }
 }

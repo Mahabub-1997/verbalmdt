@@ -72,4 +72,9 @@ class Country extends Model
     {
         return $this->hasMany(HostEnrollment::class, 'country_id');
     }
+    // Relation: Country has many ServiceProviders
+    public function serviceProviders()
+    {
+        return $this->hasMany(ServiceProvider::class, 'country_id');
+    }
 }

@@ -26,11 +26,13 @@ class Parish extends Model
     {
         return $this->county ? $this->county->country : null;
     }
+
     // A parish can have many registrations
     public function electricianRegistrations()
     {
         return $this->hasMany(GlobalElectricianRegistration::class);
     }
+
     /**
      * Get all sponsors associated with this parish.
      */
@@ -38,8 +40,16 @@ class Parish extends Model
     {
         return $this->hasMany(GlobalElectricianSponsor::class, 'parish_id');
     }
+
     public function enrollments()
     {
         return $this->hasMany(HostEnrollment::class, 'parish_id');
+    }
+
+    // Relation: Parish has many ServiceProviders
+    public function serviceProviders()
+    {
+        return $this->hasMany(ServiceProvider::class, 'parish_id');
+
     }
 }

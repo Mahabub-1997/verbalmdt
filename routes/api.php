@@ -17,6 +17,8 @@ use App\Http\Controllers\API\GlobalElectricianRegistrations\GlobalElectricianReg
 use App\Http\Controllers\API\GlobalElectricianSponsor\GlobalElectricianSponsorApiController;
 use App\Http\Controllers\API\HostEnrollmentApi\HostEnrollmentApiController;
 use App\Http\Controllers\API\PrivacyPolicy\PrivacyPolicyController;
+use App\Http\Controllers\API\ProviderService\ProviderServiceController;
+use App\Http\Controllers\API\ServiceProvider\ServiceProviderController;
 use App\Http\Controllers\API\Terms\TermController;
 use Illuminate\Support\Facades\Route;
 
@@ -86,3 +88,7 @@ Route::get('/questions/{id}', [QuestionController::class, 'show']);
 
 Route::post('/host-enrollments', [HostEnrollmentApiController::class, 'store']);
 Route::get('/host-enrollments', [HostEnrollmentApiController::class, 'index']);
+
+
+Route::post('/service-providers', [ServiceProviderController::class, 'store']);
+Route::post('/provider-services', [ProviderServiceController::class, 'store']);

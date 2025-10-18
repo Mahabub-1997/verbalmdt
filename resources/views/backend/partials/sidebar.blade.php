@@ -109,7 +109,7 @@
                     <ul class="nav nav-treeview">
                         @php
                             $subMenu = [
-//                                ['route' => '', 'icon' => 'far fa-circle', 'label' => 'CreateProduct'],
+                                ['route' => 'service-providers.index', 'icon' => 'far fa-circle', 'label' => 'CreateProduct'],
                                 ['route' => 'service-categories.index', 'icon' => 'far fa-circle', 'label' => 'Category'],
                                 ['route' => 'service-subcategories.index', 'icon' => 'far fa-circle', 'label' => 'SubCategory'],
                                 ['route' => 'pricing-types.index', 'icon' => 'far fa-circle', 'label' => 'PricingTypes'],

@@ -42,4 +42,9 @@ class County extends Model
     {
         return $this->hasMany(HostEnrollment::class, 'county_id');
     }
+    // Relation: County has many ServiceProviders
+    public function serviceProviders()
+    {
+        return $this->hasMany(ServiceProvider::class, 'county_id');
+    }
 }
