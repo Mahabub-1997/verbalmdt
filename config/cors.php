@@ -31,13 +31,22 @@ return [
 //    'max_age' => 0,
 //
 //    'supports_credentials' => true,
-    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', 'logout', 'register'],
+
+//    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', 'logout', 'register'],
+//    'allowed_methods' => ['*'],
+//    'allowed_origins' => [
+//        'http://localhost:3000',           // React dev server
+//        'http://127.0.0.1:3000',           // Optional
+//        'https://verbalmdt.softvencefsd.xyz', // Live production
+//    ],
+//    'allowed_headers' => ['*'],
+//    'supports_credentials' => true,
+
+    'paths' => ['api/*'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => [
-        'http://localhost:3000',           // React dev server
-        'http://127.0.0.1:3000',           // Optional
-        'https://verbalmdt.softvencefsd.xyz', // Live production
-    ],
+    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
     'allowed_headers' => ['*'],
-    'supports_credentials' => true,
+    'exposed_headers' => ['Authorization'], // JWT token sent in headers
+    'max_age' => 0,
+    'supports_credentials' => false,
 ];
