@@ -70,10 +70,10 @@ class ServiceProvider extends Model
     }
 
 //    // Provider has many Services
-    public function services()
-    {
-        return $this->hasMany(ProviderService::class, 'provider_id');
-    }
+//    public function services()
+//    {
+//        return $this->hasMany(ProviderService::class, 'provider_id');
+//    }
 //
 //    // Provider has many Plans
 //    public function plans()

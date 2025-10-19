@@ -7,7 +7,7 @@ use App\Models\Country;
 use App\Models\County;
 use App\Models\Parish;
 use App\Models\PricingType;
-use App\Models\ProviderService;
+//use App\Models\ProviderService;
 use App\Models\ServiceCategory;
 use App\Models\ServiceProvider;
 use App\Models\ServiceSubcategory;
@@ -22,22 +22,14 @@ class ServiceProviderController extends Controller
      */
     public function index()
     {
-        $providers = ServiceProvider::with(['user','category','services.subcategory','pricingType'])->paginate(10);
+        $providers = ServiceProvider::with(['user','category','subcategory','pricingType'])->paginate(10);
         return view('backend.layouts.serviceProvider.list', compact('providers'));
     }
 
     /**
      * Show the form for creating a new service provider.
      */
-//    public function create()
-//    {
-//        $users = User::all();
-//        $categories = ServiceCategory::all();
-//        $subcategories = ServiceSubcategory::all();
-//        $pricingTypes = PricingType::all();
-//
-//        return view('backend.layouts.serviceProvider.add', compact('users','categories','subcategories','pricingTypes'));
-//    }
+
     public function create()
     {
         $users = User::all();
