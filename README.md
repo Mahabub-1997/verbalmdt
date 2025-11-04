@@ -1,61 +1,112 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ⚡ ElectricianInThisArea: Professional Service Marketplace
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel](https://img.shields.io/badge/Laravel-12.x-red)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2-blue)](https://www.php.net/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 💡 Overview
+**ElectricianInThisArea** is a robust, **subscription-based Laravel 12 platform** that streamlines hiring for companies seeking skilled tradespeople and professionals. It serves as a **central hub** for talent across key technical roles, while also managing content and a major annual event.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Supported Professional Categories**
+- Electricians  
+- Plumbers  
+- Roofers  
+- Engineers  
+- Architects  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ Core Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+###  Professional Service Marketplace
+- 🧑‍🔧 Multi-Role Support: Dedicated profiles & search for 5 professional categories.  
+- 📍 Area-Wise Search: Find professionals within a specific geographic radius.  
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+###  Multi-Tiered Subscription Model
+| Tier | Access Level | Features |
+|------|-------------|---------|
+| Free | Limited | Basic listing, restricted profile details, limited visibility |
+| Paid (Full Access) | Premium | Full access to job postings, priority search placement, direct contact |
+| Back-Link / Partner | Feature-Specific | Strategic partners or SEO contributors, top-tier visibility |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+###  🌍 Global Electrician Day Module
+- ⏱ Real-time Countdown  
+- 📝 Event Registration  
+- 💰 Sponsorship Management  
+- 🏠 Host Management  
 
-## Laravel Sponsors
+###  📰 Content Management System (CMS)
+- CRUD management for pages & sections  
+- Contact us page, About page , Global electrician daye image, videos banner and many more.
+- Event management & announcements  
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🛠️ Installation & Setup
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Prerequisites
+- Laravel 12.x  
+- PHP >= 8.2  
+- Composer  
+- MySQL  
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+🗂 Project Folder Structure
+electricianinthisarea/
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+├── app/           # Laravel backend
 
-## Security Vulnerabilities
+├── bootstrap/
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+├── config/
 
-## License
+├── database/
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+│   └── seeders/
+
+├── public/        # Public assets
+
+├── resources/
+│   └── views/     # Blade templates
+
+├── routes/
+│   └── api.php    # API routes
+
+├── storage/
+
+└── frontend/      # frontend code (Next.js)
+
+🤝 Contribution & Support
+
+Contributions welcome! See CONTRIBUTING.md if available.
+
+Report bugs or request features via GitHub Issues.
+
+### Step-by-Step Guide
+```bash
+# Clone repo
+git clone [Your-Repo-URL] electricianinthisarea
+cd electricianinthisarea
+
+# Install dependencies
+composer install
+npm install
+npm run dev   # or npm run build for production
+
+# Setup environment
+cp .env.example .env
+php artisan key:generate
+# Edit .env for DB credentials & APP_URL
+
+# Migrate & seed database
+php artisan migrate --seed
+
+# Create symbolic storage link
+php artisan storage:link
+
+# Run the application
+php artisan serve
+
